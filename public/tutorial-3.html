@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>React - props / 컴포넌트 프로퍼티</title>
+    <script src="src/react.js"></script>
+    <script src="src/JSXTransformer.js"></script>
+</head>
+<body>
+<div id="content"></div>
+<script type="text/jsx">
+    var Comment = React.createClass({
+        render : function(){
+            return (
+                <div className="comment">
+                    <h2 className="commentOne">
+                       {this.props.author}
+                    </h2>
+                    {this.props.children}
+                </div>
+            );
+        }
+    })
+
+    var CommentList = React.createClass({
+        render : function(){
+            return (
+                <div className="commentList">
+                    <Comment author="고경준">
+                      천재님이십니다sldkflsdkflksdf
+                    </Comment>
+                    <Comment author="고경석">
+                      fgksdflgklfdkglkdfslkgldfkgldfkglfdkglk
+                    </Comment>
+                    <Comment author="우리">
+                      OK??
+                    </Comment>
+                </div>
+            )
+        }
+    })
+
+    var TestListClass = React.createClass({
+
+        render: function(){
+            return (
+              <div className="commentList">
+                  <Comment author="고경준">
+                    천재님이십니다sldkflsdkflksdf
+                  </Comment>
+                  <Comment author="고경석22222222222">
+                    fgksdflgklfdkglkdfslkgldfkgldfkglfdkglk
+                  </Comment>
+                  <Comment author="우리TestList2120392103901293">
+                    OK??
+                  </Comment>
+              </div>
+            )
+
+
+        }
+
+    })
+
+
+
+
+    React.render(
+            <TestListClass />,
+            document.getElementById('content')
+    );
+</script>
+</body>
+</html>

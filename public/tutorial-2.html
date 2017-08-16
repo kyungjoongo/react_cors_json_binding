@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>React - 컴포넌트 조합하기</title>
+    <script src="src/react.js"></script>
+    <script src="src/JSXTransformer.js"></script>
+</head>
+<body>
+<div id="content"></div>
+<script type="text/jsx">
+    var CommentList222 = React.createClass({
+        render : function(){
+            return (
+                <div className="comment-list">
+                    <ul>
+                        <li>고경준은 천재님이십니다sdlfksldkflsdkflks 목록 목록</li>
+                        <li>댓글 목록 목록</li>
+                        <li>댓글 목록 목록</li>
+                        <li>댓글 목록 목록</li>
+                        <li>댓글 목록 목록</li>
+                        <li>댓글 목록 목록</li>
+                    </ul>
+                </div>
+            );
+        }
+    });
+
+    var CommentForm = React.createClass({
+        render : function (){
+            return (
+                <div className="comment-form">
+                    이름:<input type="text" id='name' />
+                    패스워드:<input type="passwd" id='name' />
+                    <input type='button' value='전송' />
+                </div>
+            );
+        }
+    });
+
+    var CommentBox1234 = React.createClass({
+        render : function(){
+            return (
+                <div className="comment-box">
+                    <h1>댓글</h1>
+                    <CommentList222 />
+                    <CommentForm />
+                </div>
+            )
+        }
+    })
+
+    React.render(
+            <CommentBox1234 />,
+            document.getElementById('content')
+    );
+</script>
+</body>
+</html>

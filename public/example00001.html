@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>React - JSX 유,무</title>
+    <script src="src/react.js"></script>
+    <script src="src/JSXTransformer.js"></script>
+</head>
+<body>
+    <h1>JSX를 사용한 경우</h1>
+    <div id="content"></div>
+    <script type="text/jsx">
+
+    // var CommentList222 = React.createClass({
+    //     render : function(){
+    //         return (
+    //             <div className="comment-list">
+    //                 <ul>
+    //                     <li>고경준은 천재님이십니다sdlfksldkflsdkflks 목록 목록</li>
+    //                     <li>댓글 목록 목록</li>
+    //                     <li>댓글 목록 목록</li>
+    //                     <li>댓글 목록 목록</li>
+    //                     <li>댓글 목록 목록</li>
+    //                     <li>댓글 목록 목록</li>
+    //                 </ul>
+    //             </div>
+    //         );
+    //     }
+    // });
+
+
+    var ShoppingCart = React.createClass({
+         render : function() {
+              return ( <div className="comment-list">
+                   <ShoppingItem name="kimchi" available={false} />
+                   <ShoppingItem name="rice" available={true} />
+                   <ShoppingItem name="curry" available={false} />
+                   <ShoppingItem name="boobs Girl" available={true} />
+                   <ShoppingItem name="sexy Girl" available={true} />
+                   </div>
+              );
+         }
+    });
+
+
+
+    // 참고: 기존 html 엘리먼트가 아닌 한, 모든 커스텀 컴포넌트들의 이름은 대문자로
+    // 쓰여져야 하며 지켜지지 않으면 에러가 납니다.
+    var ShoppingItem = React.createClass({
+         render :function() {
+              return ( <div>
+                   <div>
+                   상품명: {this.props.name},
+                   구입가능: {this.props.available ? '가능' : '불가능'}
+                   </div>
+                   </div>
+              );
+         }
+    });
+
+   //React.render( <ShoppingCart />,document.getElementById("content");
+
+   React.render(
+          <ShoppingCart />,
+          document.getElementById('content')
+   );
+
+
+    </script>
+  </body>
+</html>
