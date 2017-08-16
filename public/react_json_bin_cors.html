@@ -7,6 +7,8 @@
     <script src="src/JSXTransformer.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+    <!-- Load Babel -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <style>
     .ajax-loader {
          position: absolute;
@@ -28,7 +30,7 @@
 <p>
   sdfkjasdkfjksdjfksjdafkjaksjdkfjasdkf
   <div id="loadingImg" class="lds-css ng-scope" style="display:none">
-       <img src='src/Spinner.gif' class="ajax-loader" />
+       <img src='src/Facebook.gif' class="ajax-loader" />
   </div>
 <div id="content"></div>
 <script type="text/jsx">
@@ -47,6 +49,7 @@
                          console.log(this.props.url, status, err.toString());
                     }.bind(this)
                })
+
           },
           getInitialState : function () {
                return {data : []}
