@@ -12,70 +12,70 @@
   sdfkjasdkfjksdjfksjdafkjaksjdkfjasdkf
 <div id="content"></div>
 <script type="text/jsx">
-    var CommentBox = React.createClass({
-        loadCommentsFromServer : function (){
-            console.log(typeof this.props.pollInterval)
-            $.ajax ({
-              url : this.props.url,
-              dataType : 'json',
-              cache : 'false',
-              success : function (data) {
-                this.setState({data : data.arrList});
-              }.bind(this),
-              error : function (xhr, status, err) {
-                console.log(this.props.url, status, err.toString());
-              }.bind(this)
-            })
-        },
-        getInitialState : function () {
-            return {data : []}
-        },
-        componentDidMount : function (){
-            this.loadCommentsFromServer();
-            setInterval(this.loadCommentsFromServer, this.props.pollInterval)
-        },
-        render : function () {
-            return (
+     var CommentBox = React.createClass({
+          loadCommentsFromServer : function (){
+               console.log(typeof this.props.pollInterval)
+               $.ajax ({
+                    url : this.props.url,
+                    dataType : 'json',
+                    cache : 'false',
+                    success : function (data) {
+                         this.setState({data : data.arrList});
+                    }.bind(this),
+                    error : function (xhr, status, err) {
+                         console.log(this.props.url, status, err.toString());
+                    }.bind(this)
+               })
+          },
+          getInitialState : function () {
+               return {data : []}
+          },
+          componentDidMount : function (){
+               this.loadCommentsFromServer();
+               setInterval(this.loadCommentsFromServer, this.props.pollInterval)
+          },
+          render : function () {
+               return (
                     <div className="commentBox">
                     <h1>댓글</h1>
                     <CommentList data={this.state.data} />
-            </div>
-            )
-        }
-    })
+                    </div>
+               )
+          }
+     })
 
-    var CommentList = React.createClass({
-        render : function(){
-            var commentNodes = this.props.data.map(function (result, idx){
-                return (
-                        <Comment author={result.id} key={idx}>
-                        {result.content}
-                </Comment>
-                )
-            })
-            return (
+     var CommentList = React.createClass({
+          render : function(){
+               var commentNodes = this.props.data.map(function (result, idx){
+                    return (
+                         <Comment author={result.id} key={idx}>
+                         {result.content}
+                         </Comment>
+                    )
+               })
+               return (
                     <div className="commentList">
                     {commentNodes}
                     </div>
-            )
-        }
-    })
+               )
+          }
+     })
 
-    var Comment = React.createClass({
-        render : function () {
-            return (
+     var Comment = React.createClass({
+          render : function () {
+               return (
                     <div className="comment">
                     <h2 className="commentAuthor">{this.props.author}</h2>
-            <p>{this.props.children}</p>
-            </div>
-            )
-        }
-    })
+                    <p>{this.props.children}</p>
+                    </div>
+               )
+          }
+     })
 
-    React.render(
-            <CommentBox url="http://35.194.71.159:8080/rest/getList" pollInterval={2000} />,
-            document.getElementById("content")
-    )
+     React.render(
+          <CommentBox url="http://35.194.71.159:8080/rest/getList" pollInterval={2000} />,
+          document.getElementById("content")
+     )
 
 </script>
 </body>
