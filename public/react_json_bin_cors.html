@@ -2,56 +2,60 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>React - 데이터 서버에서 가져오기(Fetching)</title>
+    <title>React - 데이터 서버에서 가져오기(Fetching) - setInterval 적용</title>
     <script src="src/react.js"></script>
     <script src="src/JSXTransformer.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
 </head>
 <p>
+  sdfkjasdkfjksdjfksjdafkjaksjdkfjasdkf
 <div id="content"></div>
 <script type="text/jsx">
     var CommentBox = React.createClass({
+        loadCommentsFromServer : function (){
+            console.log(typeof this.props.pollInterval)
+            $.ajax ({
+              url : this.props.url,
+              dataType : 'json',
+              cache : 'false',
+              success : function (data) {
+                this.setState({data : data.arrList});
+              }.bind(this),
+              error : function (xhr, status, err) {
+                console.log(this.props.url, status, err.toString());
+              }.bind(this)
+            })
+        },
         getInitialState : function () {
             return {data : []}
         },
         componentDidMount : function (){
-            $.ajax ({
-                // url : this.props.url,
-                url : 'http://35.194.71.159:8080/rest/getList',
-                 crossDomain: true,
-                dataType : 'json',
-                cache : 'false',
-                success : function (data) {
-                    this.setState({data : data});
-                }.bind(this),
-                error : function (xhr, status, err) {
-                    console.log(this.props.url, status, err.toString());
-                }.bind(this)
-            })
+            this.loadCommentsFromServer();
+            setInterval(this.loadCommentsFromServer, this.props.pollInterval)
         },
         render : function () {
             return (
-                <div className="commentBox">
+                    <div className="commentBox">
                     <h1>댓글</h1>
                     <CommentList data={this.state.data} />
-                </div>
+            </div>
             )
         }
     })
 
     var CommentList = React.createClass({
         render : function(){
-            var commentNodes = this.props.data.map(function (comment, idx){
+            var commentNodes = this.props.data.map(function (result, idx){
                 return (
-                    <Comment author={comment.author} key={idx}>
-                        {comment.text}
-                    </Comment>
+                        <Comment author={result.id} key={idx}>
+                        {result.content}
+                </Comment>
                 )
             })
             return (
                     <div className="commentList">
-                        {commentNodes}
+                    {commentNodes}
                     </div>
             )
         }
@@ -60,16 +64,16 @@
     var Comment = React.createClass({
         render : function () {
             return (
-                <div className="comment">
+                    <div className="comment">
                     <h2 className="commentAuthor">{this.props.author}</h2>
-                    <p>{this.props.children}</p>
-                </div>
+            <p>{this.props.children}</p>
+            </div>
             )
         }
     })
 
     React.render(
-            <CommentBox url="http://localhost:3000/src/comments.json" />,
+            <CommentBox url="http://35.194.71.159:8080/rest/getList" pollInterval={2000} />,
             document.getElementById("content")
     )
 
